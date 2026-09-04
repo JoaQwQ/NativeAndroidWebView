@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<linker>
+  <!--
+    说明：NativeAndroidWebView 程序集被热更程序集 GameLogic 调用。
+    AOT 构建时 GameLogic.dll 还不存在，IL2CPP 的托管剥离（Low）看不到任何引用，
+    会把下面这些类型删掉，导致热更运行时 TypeLoadException。此处显式保留。
+
+    注意：不要写进 Assets/HybridCLRGenerate/link.xml，
+    那是 HybridCLRSettings.outputLinkFile 指向的文件，重新 Generate 会被覆盖。
+  -->
+  <assembly fullname="NativeAndroidWebView">
+    <type fullname="NativeAndroidWebView.WebViewBridge" preserve="all" />
+    <type fullname="NativeAndroidWebView.WebViewConfig" preserve="all" />
+    <type fullname="WebViewLauncher" preserve="all" />
+  </assembly>
+</linker>
